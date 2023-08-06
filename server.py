@@ -14,8 +14,8 @@ def index():
 def create_user():
     print("Succesfully recieved POST info")
     print(request.form)
-    name = request.form["name"]
-    email = request.form["email"]
+    session["username"] = request.form["name"]
+    session["useremail"] = request.form["email"]
     return redirect("/show")
 
 
@@ -23,7 +23,11 @@ def create_user():
 def show_user():
     print("Showing the User Info From the Form")
     print(request.form)
-    return render_template("show.html")
+    return render_template(
+        "show.html",
+        name_on_template=session["username"],
+        email_on_template=session["useremail"],
+    )
 
 
 if __name__ == "__main__":
